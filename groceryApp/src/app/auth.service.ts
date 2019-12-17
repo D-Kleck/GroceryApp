@@ -7,6 +7,11 @@ interface myData {
   message: string;
 }
 
+// tslint:disable-next-line: class-name
+interface registerResponse {
+  success: boolean;
+}
+
 @Injectable()
 export class AuthService {
 
@@ -26,6 +31,13 @@ export class AuthService {
   getUserDetails(username, password) {
     // post these details to API server return user info if correct
     return this.http.post<myData>('/api/auth.php', {
+      username,
+      password
+    });
+  }
+
+  registerUser(username, password) {
+    return this.http.post<registerResponse>('/api/register', {
       username,
       password
     });

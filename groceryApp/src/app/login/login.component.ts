@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
       } else {
         window.alert(data.message);
       }
-    })
+    });
 
     console.log(username, password);
   }
