@@ -1,3 +1,4 @@
+import { UserService } from './../user.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
-  constructor() { }
+  message = 'Loading...';
+
+  constructor(private user: UserService) { }
 
   ngOnInit() {
+    this.user.getData().subscribe(data => {
+      this.message = data.message;
+    });
   }
 
 }

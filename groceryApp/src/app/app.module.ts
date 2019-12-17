@@ -1,3 +1,4 @@
+import { UserService } from './user.service';
 import { AuthService } from './auth.service';
 import { GroceryListService } from './grocery-list.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -14,6 +15,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminComponent } from './admin/admin.component';
 import { AuthGuard } from './auth.guard';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { AuthGuard } from './auth.guard';
     LoginComponent,
     SettingsComponent,
     PageNotFoundComponent,
-    AdminComponent
+    AdminComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,7 @@ import { AuthGuard } from './auth.guard';
     BrowserAnimationsModule,
     HttpClientModule
   ],
-  providers: [GroceryListService, AuthService, AuthGuard],
+  providers: [GroceryListService, AuthService, AuthGuard, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
