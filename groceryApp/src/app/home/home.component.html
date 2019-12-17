@@ -1,1 +1,17 @@
-<p>home works!</p>
+<table>
+  <tr>
+    <td>List #</td>
+    <td>Name</td>
+    <td>Username</td>
+    <td>Password</td>
+  </tr>
+  <tr *ngFor="let record of records; let i = index">
+    <td>{{i}}</td>
+    <td>{{record.name}}</td>
+    <td>{{record.username}}</td>
+    <td>{{record.password}}</td>
+  </tr>
+</table>
+
+|Angular 4200 | --> makes an API call --> | API Server 1234 |
+|Angular 4200 | --> make API call to /api/* --> weebpack dev server | API Server 1234 |

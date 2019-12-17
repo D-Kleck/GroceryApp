@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { GroceryListService} from '../grocery-list.service';
+
+interface myData {
+  obj: Object
+}
 
 @Component({
   selector: 'app-home',
@@ -7,9 +12,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  records = {};
+
+  constructor(private myFirstService: GroceryListService) { }
 
   ngOnInit() {
+    this.myFirstService.getData().subscribe(data => {
+      this.records = data.obj;
+    });
   }
 
 }
