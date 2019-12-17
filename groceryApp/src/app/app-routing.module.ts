@@ -5,9 +5,6 @@ import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SettingsComponent } from './settings/settings.component';
 
-
-const routes: Routes = [];
-
 const routes: Routes = [
   {
     path: 'dashboard',
@@ -20,6 +17,10 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent
+  },
+  {
+    path: 'users',
+    loadChildren: './users/users.module#UsersModule'
   },
   {
     path: '',
