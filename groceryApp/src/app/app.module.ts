@@ -1,3 +1,4 @@
+import { AuthService } from './auth.service';
 import { GroceryListService } from './grocery-list.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -11,6 +12,8 @@ import { LoginComponent } from './login/login.component';
 import { SettingsComponent } from './settings/settings.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AdminComponent } from './admin/admin.component';
+import { AuthGuard } from './auth.guard';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HomeComponent,
     LoginComponent,
     SettingsComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +31,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     HttpClientModule
   ],
-  providers: [GroceryListService],
+  providers: [GroceryListService, AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
