@@ -36,8 +36,10 @@ export class AuthService {
     });
   }
 
-  registerUser(username, password) {
+  registerUser(firstName, lastName, username, password) {
     return this.http.post<registerResponse>('/api/register', {
+      firstName,
+      lastName,
       username,
       password
     });

@@ -19,6 +19,8 @@ export class RegisterComponent implements OnInit {
 
     const target = event.target;
     const errors = [];
+    const firstName = target.querySelector('#firstName').value;
+    const lastName = target.querySelector('#lastName').value;
     const username = target.querySelector('#username').value;
     const password = target.querySelector('#password').value;
     const cpassword = target.querySelector('#cpassword').value;
@@ -30,7 +32,7 @@ export class RegisterComponent implements OnInit {
     // temp
 
     if (errors.length == 0) {
-      this.Auth.registerUser(username, password).subscribe(data => {
+      this.Auth.registerUser(firstName, lastName, username, password).subscribe(data => {
         console.log(data);
         if (data.success) {
           this.router.navigate(['dashboard']);
