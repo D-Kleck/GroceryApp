@@ -1,41 +1,49 @@
-import * as express from 'express';
-import * as mongoose from 'mongoose';
-import * as bodyParser from 'body-parser';
 
-const app = express();
-const port = process.env.PORT || 1234;
-const logLevel = process.env.LOG_LEVEL || 'dev';
+import express = require('express');
+import path = require('path');
+import bodyParser = require('body-parser');
+import cors = require('cors');
+import mongoose = require('mongoose');
+import { database } from './config/database.config';
+import { router } from './routes/user.routes';
 
-// mongoose connection
-require('mongoose').Promise = global.Promise;
-mongoose.connect('mongodb://localhost/groceryApp', {
+// Database connection using mongoose
+mongoose.connect(database, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 });
-const groceryApp = mongoose.connection;
+const groceryAppDB = mongoose.connection;
 
-groceryApp.on('error', console.error.bind(console, 'connection error:'));
-
-groceryApp.once('open', () => {
-  console.log('Connection Successful!');
+// SUCCESS
+groceryAppDB.on('connected', () => {
+  console.log('Connected to Database ' + database);
+});
+// FAIL
+groceryAppDB.on('error', err => {
+  console.log('Database Connection Error ' + err);
 });
 
-// parser middleware needed to process req.body
-app.use(bodyParser.urlencoded({ extended: false }));
+const app = express();
+const port = process.env.PORT || 1234;
+
+app.use(cors());
+
+// Set Static Folder
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Body Parser Middleware
 app.use(bodyParser.json());
 
-// register routes
-app.use('/api');
+app.use('/users', router);
 
-app.post('/api/register', (req, res) => {
-  const {firstName, lastName, username, password } = req.body;
-})
+// Index Route
+app.get('/', (req, res) => {
+  res.send('Not authorized to view this page!');
+});
 
-// // handle 404s
-// app.use(error404);
-
-// // handle 500s
-// app.use(error500);
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
+});
 
 // listen on server port
 app.listen(port, () => {

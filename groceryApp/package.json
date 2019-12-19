@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "prettier:write": "prettier --config .prettierrc --list-different \"{e2e/**/*{.ts,.js,.json},src/{app,environments,assets}/**/*{.ts,.js,.json,.css,.scss}}\" --write"
   },
   "private": true,
   "dependencies": {
@@ -20,6 +21,8 @@
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
     "bootstrap": "4.1.1",
+    "environments": "^1.2.2",
+    "router": "^1.3.3",
     "ngx-bootstrap": "^5.2.0",
     "rxjs": "~6.4.0",
     "tslib": "^1.10.0",

@@ -20,7 +20,11 @@ const userSchema = new Schema<User>({
     type: String,
     required: 'A password is required to sign-up'
   },
+  admin: {
+    type: Boolean,
+    required: 'is an admin or not'
+  },
   groceryLists: [list]
 });
 
-export const user = model('User', userSchema);
+export const apiUser = model('User', userSchema);

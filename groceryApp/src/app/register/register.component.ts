@@ -1,43 +1,61 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { first } from 'rxjs/operators';
 
+import { AlertService } from './../user-services/alert.service';
+import { AuthenticationService } from './../user-services/authentication.service';
+import { UserService } from './../user-services/user.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.sass']
 })
-export class RegisterComponent implements OnInit {
 
-  constructor(private Auth: AuthService, private router: Router) { }
+export class RegisterComponent implements OnInit {
+  registerForm: FormGroup;
+  loading = false;
+  submitted = false;
+
+  constructor(private formBuilder: FormBuilder,
+              private router: Router,
+              private authenticationService: AuthenticationService,
+              private userService: UserService,
+              private alertService: AlertService) {
+                if (this.authenticationService.currentUserValue) {
+                  this.router.navigate(['/']);
+                }
+              }
 
   ngOnInit() {
+    this.registerForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+  });
   }
 
-  registerUser(event) {
-    event.preventDefault();
+  // convenience getter for easy access to form fields
+  get f() { return this.registerForm.controls; }
 
-    const target = event.target;
-    const errors = [];
-    const firstName = target.querySelector('#firstName').value;
-    const lastName = target.querySelector('#lastName').value;
-    const username = target.querySelector('#username').value;
-    const password = target.querySelector('#password').value;
-    const cpassword = target.querySelector('#cpassword').value;
+  onSubmit() {
+    this.submitted = true;
 
-    if (password !== cpassword) {
-      errors.push('Passwords do not match');
+    // stop here if form is invalid
+    if (this.registerForm.invalid) {
+        return;
     }
 
-    // temp
-
-    if (errors.length == 0) {
-      this.Auth.registerUser(firstName, lastName, username, password).subscribe(data => {
-        console.log(data);
-        if (data.success) {
-          this.router.navigate(['dashboard']);
-        }
-      });
-    }
-  }
+    this.loading = true;
+    this.userService.register(this.registerForm.value)
+        .pipe(first())
+        .subscribe(
+            data => {
+                this.alertService.success('Registration successful', true);
+                this.router.navigate(['/login']);
+            },
+            error => {
+                this.alertService.error(error);
+                this.loading = false;
+            });
+}
 }
