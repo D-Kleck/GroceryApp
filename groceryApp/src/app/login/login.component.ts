@@ -1,6 +1,10 @@
-import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { first } from 'rxjs/operators';
+
+import { AlertService } from './../user-services/alert.service';
+import { AuthenticationService } from './../user-services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -8,28 +12,55 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.sass']
 })
 export class LoginComponent implements OnInit {
+    loginForm: FormGroup;
+    loading = false;
+    submitted = false;
+    returnUrl: string;
 
-  constructor(private Auth: AuthService, private router: Router) { }
+    constructor(
+        private formBuilder: FormBuilder,
+        private route: ActivatedRoute,
+        private router: Router,
+        private authenticationService: AuthenticationService,
+        private alertService: AlertService
+    ) {
+        // redirect to home if already logged in
+        if (this.authenticationService.currentUserValue) {
+            this.router.navigate(['/']);
+        }
+    }
 
-  ngOnInit() {
-  }
+    ngOnInit() {
+        this.loginForm = this.formBuilder.group({
+            username: ['', Validators.required],
+            password: ['', Validators.required]
+        });
 
-  loginUser(event) {
-    event.preventDefault();
+        // get return url from route parameters or default to '/'
+        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    }
 
-    const target = event.target;
-    const username = target.querySelector('#username').value;
-    const password = target.querySelector('#password').value;
-    this.Auth.getUserDetails(username, password).subscribe(data => {
-      if(data.success) {
-        this.router.navigate(['admin']);
-        this.Auth.setLoggedIn(true);
-      } else {
-        window.alert(data.message);
-      }
-    });
+    // convenience getter for easy access to form fields
+    get f() { return this.loginForm.controls; }
 
-    console.log(username, password);
-  }
+    onSubmit() {
+        this.submitted = true;
 
+        // stop here if form is invalid
+        if (this.loginForm.invalid) {
+            return;
+        }
+
+        this.loading = true;
+        this.authenticationService.login(this.f.username.value, this.f.password.value)
+            .pipe(first())
+            .subscribe(
+                data => {
+                    this.router.navigate([this.returnUrl]);
+                },
+                error => {
+                    this.alertService.error(error);
+                    this.loading = false;
+                });
+    }
 }

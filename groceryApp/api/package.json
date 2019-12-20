@@ -4,7 +4,7 @@
   "description": "backend",
   "main": "app.ts",
   "scripts": {
-    "dev": "cross-env PORT=4000 LOG_LEVEL='dev' ts-node-dev --respawn --transpileOnly app.ts",
+    "dev": "cross-env PORT=1234 LOG_LEVEL='dev' ts-node-dev --respawn --transpileOnly app.ts",
     "prettier:write": "prettier --config .prettierrc --list-different \"{api/**/*{.ts,.js,.json}}\" --write",
     "lint": "eslint **/*.ts --fix"
   },
@@ -12,7 +12,6 @@
     "@angular/cli": "^8.3.20",
     "@types/typescript": "^2.0.0",
     "bcrypt": "^3.0.7",
-    "bcryptjs": "^2.4.3",
     "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.7.2"
   },

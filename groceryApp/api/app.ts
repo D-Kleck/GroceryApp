@@ -41,6 +41,16 @@ app.get('/', (req, res) => {
   res.send('Not authorized to view this page!');
 });
 
+// Register Route
+app.get('/register', (req, res) => {
+  res.send('Register!');
+});
+
+// Login Route
+app.get('/login', (req, res) => {
+  res.send('login!');
+});
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/index.html'));
 });

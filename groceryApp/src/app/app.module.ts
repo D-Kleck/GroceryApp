@@ -17,6 +17,7 @@ import { AdminComponent } from './admin/admin.component';
 import { AuthGuard } from './auth.guard';
 import { LogoutComponent } from './logout/logout.component';
 import { RegisterComponent } from './register/register.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,9 @@ import { RegisterComponent } from './register/register.component';
     PageNotFoundComponent,
     AdminComponent,
     LogoutComponent,
-    RegisterComponent
+    RegisterComponent,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   imports: [
     BrowserModule,
