@@ -28,21 +28,21 @@ export class AuthService {
     return this.loggedInState;
   }
 
-  getUserDetails(username, password) {
-    // post these details to API server return user info if correct
-    return this.http.post<myData>('/api/auth.php', {
-      username,
-      password
-    });
-  }
+  // getUserDetails(username, password) {
+  //   // post these details to API server return user info if correct
+  //   return this.http.post<myData>('/api/auth.php', {
+  //     username,
+  //     password
+  //   });
+  // }
 
-  registerUser(firstName, lastName, username, password) {
-    return this.http.post<registerResponse>('/api/register', {
-      firstName,
-      lastName,
-      username,
-      password
-    });
-  }
+  // registerUser(firstName, lastName, username, password) {
+  //   return this.http.post<registerResponse>('/api/register', {
+  //     firstName,
+  //     lastName,
+  //     username,
+  //     password
+  //   });
+  // }
 
 }

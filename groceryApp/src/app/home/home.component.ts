@@ -17,9 +17,8 @@ export class HomeComponent implements OnInit {
   constructor(private myFirstService: GroceryListService) { }
 
   ngOnInit() {
-    this.myFirstService.getData().subscribe(data => {
-      this.records = data.obj;
-    });
+    // this.myFirstService.getData().subscribe(data => {
+    //   this.records = data.obj;
+    }
   }
 
-}

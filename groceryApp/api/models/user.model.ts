@@ -6,7 +6,6 @@ export interface User {
   lastName: string;
   username: string;
   password: string;
-  token: string;
   admin: boolean;
-  groceryLists: [grocerList];
+  groceryLists: grocerList[];
 }

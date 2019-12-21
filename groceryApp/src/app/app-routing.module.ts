@@ -42,7 +42,7 @@ const routes: Routes = [
   },
   {
     path: 'users',
-    loadChildren: './users/users.module#UsersModule'
+    loadChildren: './users.module#UsersModule'
   },
   {
     path: '',

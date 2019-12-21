@@ -22,9 +22,7 @@ const listSchema = new Schema<grocerList>({
     required: 'Need to know when the list is for'
   },
   // tslint:disable-next-line: new-parens
-  items: {
-    type: [itemSchema]
-  } // calling the new item model in this model does that work?
+  items: [itemSchema] // calling the new item model in this model does that work?
 });
 
 // New User
@@ -49,11 +47,7 @@ const userSchema = new Schema<User>({
     type: Boolean,
     required: 'is an admin or not'
   },
-  groceryLists: {
-    type: [listSchema],
-  }
+  groceryLists: [listSchema]
 });
+export const UserModel = model('User', userSchema);
 
-export const apiUser = model('User', userSchema);
-export const apiList = model('List', listSchema);
-export const apiItem = model('Item', itemSchema);

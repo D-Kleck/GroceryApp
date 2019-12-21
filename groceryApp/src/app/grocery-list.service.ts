@@ -14,7 +14,7 @@ export class GroceryListService {
 
   }
 
-  getData() {
-    return this.http.get<myData>('api/file.php');
-  }
+  // getData() {
+  //   return this.http.get<myData>('api/file.php');
+  // }
 }

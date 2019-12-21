@@ -29,17 +29,17 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     PageNotFoundComponent,
     AdminComponent,
     LogoutComponent,
-    RegisterComponent,
-    FormsModule,
-    ReactiveFormsModule,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
-  providers: [GroceryListService, AuthService, AuthGuard, UserService],
+  providers: [GroceryListService, AuthService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
